@@ -3,7 +3,7 @@ REM Windows release build for lancer-semgrep.
 REM Output: dist$PKG-windows-x86_64\bin$PKG.exe
 
 echo === Building lancer-semgrep (release) for Windows x86_64 ===
-cargo build --release
+cargo build --release --bin lancer-semgrep
 if errorlevel 1 exit /b 1
 
 echo === Packaging ===

@@ -1,0 +1,137 @@
+[package]
+name = "tree-sitter-langs"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description.workspace = true
+
+[lib]
+name = "tree_sitter_langs"
+path = "src/lib.rs"
+
+# ---------------------------------------------------------------------------
+# Features
+# ---------------------------------------------------------------------------
+#
+# Each `lang-<name>` Cargo feature pulls in one `tree-sitter-<name>` grammar
+# crate as an optional dependency via the `dep:` syntax. The `default` set
+# matches the 6 GA-tier languages also covered by per-grammar canonicalisers
+# in `canonical.rs`; `all-langs` enables every grammar we ship adapters for.
+[features]
+default = ["default-langs"]
+default-langs = [
+    "lang-python",
+    "lang-javascript",
+    "lang-typescript",
+    "lang-go",
+    "lang-rust",
+    "lang-java",
+]
+all-langs = [
+    "default-langs",
+    "lang-ruby",
+    "lang-c",
+    "lang-cpp",
+    "lang-csharp",
+    "lang-php",
+    "lang-kotlin",
+    "lang-swift",
+    "lang-scala",
+    "lang-bash",
+    "lang-lua",
+    "lang-r",
+    "lang-elixir",
+    "lang-clojure",
+    "lang-ocaml",
+    "lang-yaml",
+    "lang-dockerfile",
+    "lang-hcl",
+    "lang-solidity",
+    "lang-dart",
+    "lang-html",
+]
+
+lang-python      = ["dep:tree-sitter-python"]
+lang-javascript  = ["dep:tree-sitter-javascript"]
+lang-typescript  = ["dep:tree-sitter-typescript"]
+lang-go          = ["dep:tree-sitter-go"]
+lang-rust        = ["dep:tree-sitter-rust"]
+lang-java        = ["dep:tree-sitter-java"]
+lang-ruby        = ["dep:tree-sitter-ruby"]
+lang-c           = ["dep:tree-sitter-c"]
+lang-cpp         = ["dep:tree-sitter-cpp"]
+# Crate name `tree-sitter-c-sharp` differs from feature name `lang-csharp`;
+# the `dep:` syntax handles the mismatch.
+lang-csharp      = ["dep:tree-sitter-c-sharp"]
+lang-php         = ["dep:tree-sitter-php"]
+lang-kotlin      = ["dep:tree-sitter-kotlin"]
+lang-swift       = ["dep:tree-sitter-swift"]
+lang-scala       = ["dep:tree-sitter-scala"]
+lang-bash        = ["dep:tree-sitter-bash"]
+lang-lua         = ["dep:tree-sitter-lua"]
+lang-r           = ["dep:tree-sitter-r"]
+lang-elixir      = ["dep:tree-sitter-elixir"]
+lang-clojure     = ["dep:tree-sitter-clojure"]
+lang-ocaml       = ["dep:tree-sitter-ocaml"]
+lang-yaml        = ["dep:tree-sitter-yaml"]
+lang-dockerfile  = ["dep:tree-sitter-dockerfile"]
+lang-hcl         = ["dep:tree-sitter-hcl"]
+lang-solidity    = ["dep:tree-sitter-solidity"]
+lang-dart        = ["dep:tree-sitter-dart"]
+lang-html        = ["dep:tree-sitter-html"]
+
+# ---------------------------------------------------------------------------
+# Dependencies
+# ---------------------------------------------------------------------------
+[dependencies]
+tree-sitter = { workspace = true }
+once_cell = { workspace = true }
+thiserror = { workspace = true }
+
+# Vocabulary types (`Language`, `node::CanonicalKind`). The reverse path dep
+# from `semgrep-core` is intentionally absent — see the note in
+# `semgrep-core/Cargo.toml`.
+semgrep-core = { path = "../semgrep-core" }
+
+# ---------------------------------------------------------------------------
+# Per-language grammars (optional, gated by features above).
+#
+# Version policy: pin to the major.minor we know exists on crates.io. The
+# upstream `tree-sitter` 0.22 / 0.23 wave aligns most "official" grammars on
+# `0.23.x`. Community grammars sit on whatever their maintainers cut last —
+# we pick the most recent published major.minor. We DO NOT run `cargo build`
+# during Task 3, so if a version turns out to be unpublished we'll bump it
+# during Task 4 wiring.
+# ---------------------------------------------------------------------------
+tree-sitter-python      = { version = "0.23",   optional = true }
+tree-sitter-javascript  = { version = "0.23",   optional = true }
+tree-sitter-typescript  = { version = "0.23",   optional = true }
+tree-sitter-go          = { version = "0.23",   optional = true }
+tree-sitter-rust        = { version = "0.23",   optional = true }
+tree-sitter-java        = { version = "0.23",   optional = true }
+tree-sitter-ruby        = { version = "0.23",   optional = true }
+tree-sitter-c           = { version = "0.23",   optional = true }
+tree-sitter-cpp         = { version = "0.23",   optional = true }
+tree-sitter-c-sharp     = { version = "0.23",   optional = true }
+tree-sitter-php         = { version = "0.23",   optional = true }
+tree-sitter-bash        = { version = "0.23",   optional = true }
+tree-sitter-html        = { version = "0.23",   optional = true }
+tree-sitter-ocaml       = { version = "0.23",   optional = true }
+
+# Community grammars — best-effort versions. Where uncertain we pick a
+# permissive requirement; the adapter file documents whether it uses the
+# 0.22 `LANGUAGE` constant or the 0.21-style `language()` function.
+tree-sitter-scala       = { version = "0.22",   optional = true }
+tree-sitter-kotlin      = { version = "0.3",    optional = true }
+tree-sitter-swift       = { version = "0.6",    optional = true }
+tree-sitter-solidity    = { version = "1.2",    optional = true }
+tree-sitter-elixir      = { version = "0.3",    optional = true }
+tree-sitter-clojure     = { version = "0.0.13", optional = true }
+tree-sitter-r           = { version = "1.1",    optional = true }
+tree-sitter-dockerfile  = { version = "0.2",    optional = true }
+tree-sitter-hcl         = { version = "1.1",    optional = true }
+tree-sitter-dart        = { version = "0.0.4",  optional = true }
+tree-sitter-lua         = { version = "0.2",    optional = true }
+tree-sitter-yaml        = { version = "0.7",    optional = true }

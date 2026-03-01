@@ -1,0 +1,10 @@
+{
+  "results": [
+    {
+      "rule_id": "go.fmt-println-debug",
+      "severity": "WARNING",
+      "file": "target.go",
+      "message": "leftover debug fmt.Println call"
+    }
+  ]
+}

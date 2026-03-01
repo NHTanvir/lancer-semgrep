@@ -1,0 +1,10 @@
+{
+  "results": [
+    {
+      "rule_id": "javascript.dangerous-eval",
+      "severity": "ERROR",
+      "file": "target.js",
+      "message": "dangerous eval call"
+    }
+  ]
+}

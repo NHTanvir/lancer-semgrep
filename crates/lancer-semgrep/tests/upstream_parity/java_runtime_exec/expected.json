@@ -1,0 +1,10 @@
+{
+  "results": [
+    {
+      "rule_id": "java.runtime-exec",
+      "severity": "ERROR",
+      "file": "target.java",
+      "message": "command injection via Runtime.exec"
+    }
+  ]
+}

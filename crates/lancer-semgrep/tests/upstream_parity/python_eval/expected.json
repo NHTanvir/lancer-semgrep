@@ -1,0 +1,10 @@
+{
+  "results": [
+    {
+      "rule_id": "python.dangerous-eval",
+      "severity": "ERROR",
+      "file": "target.py",
+      "message": "dangerous eval call"
+    }
+  ]
+}

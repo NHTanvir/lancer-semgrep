@@ -32,3 +32,5 @@ Output: `build/lancer-semgrep`
 ## Status
 
 Scaffold only — implementation per local `plan.md` (gitignored).
+
+This is a Cargo workspace; see `crates/`.

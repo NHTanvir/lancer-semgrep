@@ -1,0 +1,61 @@
+[package]
+name = "semgrep-core"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description.workspace = true
+
+[lib]
+name = "semgrep_core"
+path = "src/lib.rs"
+
+[features]
+default = []
+# Gate Pro-mode stubs (interfile taint, function summary cache, type-aware
+# metavariables, etc.). See plan §"Pro engine differentiators".
+pro = []
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+serde_yaml = { workspace = true }
+tracing = { workspace = true }
+thiserror = { workspace = true }
+eyre = { workspace = true }
+regex = { workspace = true }
+memchr = { workspace = true }
+walkdir = { workspace = true }
+ignore = { workspace = true }
+globset = { workspace = true }
+petgraph = { workspace = true }
+rayon = { workspace = true }
+tree-sitter = { workspace = true }
+redb = { workspace = true }
+sha2 = { workspace = true }
+blake3 = { workspace = true }
+git2 = { workspace = true }
+similar = { workspace = true }
+dashmap = { workspace = true }
+once_cell = { workspace = true }
+bytes = { workspace = true }
+directories = { workspace = true }
+reqwest = { workspace = true }
+tokio = { workspace = true }
+
+[dev-dependencies]
+tempfile = "3"
+tokio = { workspace = true }
+
+# Workspace crate deps
+#
+# NOTE: No path dep on `tree-sitter-langs` here — `tree-sitter-langs` depends
+# on `semgrep-core` for the `Language` and `node::CanonicalKind` vocabulary
+# types (Task 3), so the dep flows tree-sitter-langs → semgrep-core. When
+# `parse/parser.rs` lands in `semgrep-core`, it will reach back the other way
+# via a re-exported facade, not a direct Cargo dep, to keep this graph acyclic.
+#
+# NOTE: No path dep on `semgrep-output` either. Task 7 inverted the edge so the
+# emitters can depend on the `Finding` vocabulary defined here. `semgrep-core`
+# must remain GUI/output-agnostic per plan §"Internal architecture".

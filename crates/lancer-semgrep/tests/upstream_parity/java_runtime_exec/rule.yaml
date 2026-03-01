@@ -1,0 +1,6 @@
+rules:
+  - id: java.runtime-exec
+    languages: [java]
+    severity: ERROR
+    message: command injection via Runtime.exec
+    pattern: Runtime.getRuntime().exec($X)

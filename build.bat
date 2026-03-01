@@ -40,7 +40,7 @@ if errorlevel 1 (
 )
 
 echo  [1/2]  Building release binary...
-"!CARGO!" build --release
+"!CARGO!" build --release --bin lancer-semgrep
 if errorlevel 1 (
     echo  ERROR: cargo build failed
     pause

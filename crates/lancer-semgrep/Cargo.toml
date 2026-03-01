@@ -1,0 +1,72 @@
+[package]
+name = "lancer-semgrep"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description.workspace = true
+default-run = "lancer-semgrep"
+
+[lib]
+name = "lancer_semgrep"
+path = "src/lib.rs"
+
+[[bin]]
+name = "lancer-semgrep"
+path = "src/bin/main.rs"
+
+[features]
+default = ["gui"]
+# GUI feature — enables the eframe/egui native window. Disable with
+# `--no-default-features` to build a pure CLI binary (smaller, no graphics
+# stack required). See `src/gui/` for the module tree.
+gui = [
+  "dep:eframe",
+  "dep:egui",
+  "dep:egui_extras",
+  "dep:egui_plot",
+  "dep:rfd",
+  "dep:directories",
+  "dep:arboard",
+  "dep:egui-notify",
+  "dep:crossbeam-channel",
+]
+
+[dependencies]
+clap = { workspace = true }
+tokio = { workspace = true }
+eyre = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+owo-colors = { workspace = true }
+
+rayon = { workspace = true }
+thiserror = { workspace = true }
+once_cell = { workspace = true }
+tree-sitter = { workspace = true }
+walkdir = { workspace = true }
+
+# MCP server (Task 10): JSON-RPC framing + JSON Schema serialisation.
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Workspace crate deps
+semgrep-core = { path = "../semgrep-core" }
+semgrep-rules = { path = "../semgrep-rules" }
+semgrep-output = { path = "../semgrep-output" }
+semgrep-taint = { path = "../semgrep-taint" }
+tree-sitter-langs = { path = "../tree-sitter-langs" }
+
+# GUI (Task 11, optional — gated on the `gui` feature).
+# Pinned to egui 0.28 because the panes are written against that API
+# (see `src/gui/`).
+eframe = { version = "0.28", default-features = false, features = ["default_fonts", "glow"], optional = true }
+egui = { version = "0.28", optional = true }
+egui_extras = { version = "0.28", optional = true }
+egui_plot = { version = "0.28", optional = true }
+rfd = { version = "0.14", optional = true }
+directories = { workspace = true, optional = true }
+arboard = { version = "3", optional = true }
+egui-notify = { version = "0.15", optional = true }
+crossbeam-channel = { workspace = true, optional = true }

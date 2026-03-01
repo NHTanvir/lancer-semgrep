@@ -1,0 +1,6 @@
+rules:
+  - id: rust.unsafe-block
+    languages: [rust]
+    severity: WARNING
+    message: unsafe block — review carefully
+    pattern: unsafe { ... }

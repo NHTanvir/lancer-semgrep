@@ -1,0 +1,26 @@
+[package]
+name = "semgrep-taint"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description.workspace = true
+
+[lib]
+name = "semgrep_taint"
+path = "src/lib.rs"
+
+[dependencies]
+petgraph = { workspace = true }
+tracing = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }
+eyre = { workspace = true }
+rayon = { workspace = true }
+
+# Workspace crate deps
+semgrep-core = { path = "../semgrep-core" }
+
+[dev-dependencies]
+serde_json = { workspace = true }

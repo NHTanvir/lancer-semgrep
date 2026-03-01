@@ -1,0 +1,31 @@
+[package]
+name = "semgrep-output"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description.workspace = true
+
+[lib]
+name = "semgrep_output"
+path = "src/lib.rs"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+serde_sarif = { workspace = true }
+junit-report = { workspace = true }
+owo-colors = { workspace = true }
+tracing = { workspace = true }
+thiserror = { workspace = true }
+eyre = { workspace = true }
+
+# Workspace crate deps
+#
+# `semgrep-output` owns emitters for the `Finding` vocabulary defined in
+# `semgrep-core`. Task 7 inverted the original (unused) `semgrep-core →
+# semgrep-output` edge so the flow now runs emitters → vocabulary, which is
+# the natural direction (formatters consume the engine's data types). The old
+# direction must NOT be re-added; see `crates/semgrep-core/Cargo.toml`.
+semgrep-core = { path = "../semgrep-core" }

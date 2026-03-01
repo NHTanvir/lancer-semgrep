@@ -1,0 +1,10 @@
+{
+  "results": [
+    {
+      "rule_id": "rust.unsafe-block",
+      "severity": "WARNING",
+      "file": "target.rs",
+      "message": "unsafe block — review carefully"
+    }
+  ]
+}

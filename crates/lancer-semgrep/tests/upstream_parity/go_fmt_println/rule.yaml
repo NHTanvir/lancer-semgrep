@@ -1,0 +1,6 @@
+rules:
+  - id: go.fmt-println-debug
+    languages: [go]
+    severity: WARNING
+    message: leftover debug fmt.Println call
+    pattern: fmt.Println($X)
